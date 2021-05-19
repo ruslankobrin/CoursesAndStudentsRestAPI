@@ -14,7 +14,7 @@ class StudentSerializer(serializers.ModelSerializer):
         ]
 
 
-class CourseParticipantSerializer(serializers.ModelSerializer):
+class CourseParticipantStudentsSerializer(serializers.ModelSerializer):
     student = StudentSerializer()
 
     class Meta:
@@ -40,8 +40,19 @@ class CourseSerializer(serializers.ModelSerializer):
 
     def get_participants(self, obj):
         queryset = CourseParticipant.objects.all().filter(course=obj)[:COUNT_PARTICIPANTS]
-        serializer = CourseParticipantSerializer(queryset, many=True)
+        serializer = CourseParticipantStudentsSerializer(queryset, many=True)
         return serializer.data
 
     def get_students_count(self, obj):
         return len(self.get_participants(obj))
+
+
+class CourseParticipantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseParticipant
+        fields = [
+            "id",
+            "course",
+            "student",
+            "completed",
+        ]
