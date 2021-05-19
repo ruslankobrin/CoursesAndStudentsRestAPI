@@ -1,15 +1,13 @@
 from django.shortcuts import render
-from rest_framework import viewsets, serializers
+from rest_framework import viewsets
 
 from student_course.models import Course
-
-
-class CourseSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Course
-        fields = ['name', 'start_date', 'end_date']
+from student_course.serializers import CourseSerializer
 
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    http_method_names = [
+        "get",
+    ]

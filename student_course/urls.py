@@ -3,7 +3,6 @@ from rest_framework import routers
 
 from student_course.views import CourseViewSet
 
-
 router = routers.DefaultRouter()
 router.register(r'courses', CourseViewSet)
 

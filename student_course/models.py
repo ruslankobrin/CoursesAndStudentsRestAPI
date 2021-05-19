@@ -15,6 +15,12 @@ class Student(models.Model):
 
 
 class CourseParticipant(models.Model):
+    class Meta:
+        unique_together = [
+            "course",
+            "student",
+        ]
+
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
     completed = models.BooleanField()
